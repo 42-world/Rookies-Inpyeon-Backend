@@ -1,7 +1,7 @@
 import { Controller, Get } from '@nestjs/common';
 import { ApiOkResponse, ApiOperation, ApiTags } from '@nestjs/swagger';
-import { UserEntity } from '../../common';
 import { Auth, AuthUser } from '../../common/auth';
+import { UserEntity } from '../../common/database';
 
 @ApiTags('User')
 @Controller('users')

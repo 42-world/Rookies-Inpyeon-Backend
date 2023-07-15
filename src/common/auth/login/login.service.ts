@@ -5,7 +5,7 @@ import { UserEntity, UserRepository } from '../../database';
 export class LoginService {
   constructor(private readonly userRepository: UserRepository) {}
 
-  async loginById(id: string): Promise<UserEntity> {
+  async loginById(id: number): Promise<UserEntity> {
     const user = await this.userRepository.findById(id);
 
     if (!user) {

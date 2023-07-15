@@ -14,7 +14,7 @@ export class UserRepository {
     await this.repository.upsert(data, ['kakaoId']);
   }
 
-  async findById(id: string): Promise<UserEntity | null> {
+  async findById(id: number): Promise<UserEntity | null> {
     return await this.repository.findOneBy({ id });
   }
 

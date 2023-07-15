@@ -12,7 +12,7 @@ describe('UserRepositoryE2e', () => {
 
     const userRepository = app.get<UserRepository>(UserRepository);
 
-    const result = await userRepository.findById('1');
+    const result = await userRepository.findById(1);
 
     console.log(result);
   });

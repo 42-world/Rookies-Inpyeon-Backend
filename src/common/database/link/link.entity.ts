@@ -6,26 +6,28 @@ import {
   JoinColumn,
   ManyToOne,
   PrimaryGeneratedColumn,
+  Unique,
   UpdateDateColumn,
 } from 'typeorm';
-import { SoilderEntity } from '../soilder';
+import { SoldierEntity } from '../soldier';
 
 @Entity({ name: 'link' })
+@Unique(['soilderId', 'displayId'])
 export class LinkEntity {
   @PrimaryGeneratedColumn()
-  id: string;
+  id: number;
 
   @Column({ nullable: false })
-  soilderId: string;
+  soilderId: number;
 
-  @ManyToOne(() => SoilderEntity, {
+  @ManyToOne(() => SoldierEntity, {
     lazy: true,
     createForeignKeyConstraints: false,
   })
   @JoinColumn({ name: 'soilder_id', referencedColumnName: 'id' })
-  soilder: Promise<SoilderEntity>;
+  soilder: Promise<SoldierEntity>;
 
-  @Column({ type: 'varchar', length: 15, nullable: false, unique: true })
+  @Column({ type: 'varchar', length: 15, nullable: false })
   displayId: string;
 
   @Column({ type: 'varchar', length: 255, nullable: false })

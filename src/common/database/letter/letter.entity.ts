@@ -13,10 +13,10 @@ import { LinkEntity } from '../link';
 @Entity({ name: 'letter' })
 export class LetterEntity {
   @PrimaryGeneratedColumn()
-  id: string;
+  id: number;
 
   @Column({ nullable: false })
-  linkId: string;
+  linkId: number;
 
   @ManyToOne(() => LinkEntity, {
     lazy: true,
@@ -28,17 +28,17 @@ export class LetterEntity {
   @Column({ type: 'varchar', length: 42, nullable: false })
   title: string;
 
-  @Column({ type: 'text', nullable: false })
+  @Column({ type: 'varchar', length: 4000, nullable: false })
   content: string;
 
-  @Column({ type: 'varchar', length: 42, nullable: false })
+  @Column({ type: 'varchar', length: 15, nullable: false })
   writer: string;
 
   @Column({ type: 'boolean', nullable: false, default: false })
   isSent: boolean;
 
-  @Column({ type: 'boolean', nullable: false, default: false })
-  isHidden: boolean;
+  @Column({ type: 'varchar', length: 15, nullable: false })
+  password: string;
 
   @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date;

@@ -10,7 +10,7 @@ import {
 @Entity({ name: 'user' })
 export class UserEntity {
   @PrimaryGeneratedColumn()
-  id: string;
+  id: number;
 
   @Column({ type: 'varchar', length: 15, nullable: false, unique: true })
   kakaoId: string;

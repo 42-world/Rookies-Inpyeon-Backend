@@ -20,7 +20,7 @@ describe('LetterRepositoryE2e', () => {
     //   isHidden: false,
     // });
 
-    const result = await letterRepository.findAllByLinkId('1');
+    const result = await letterRepository.findAllByLinkId(1);
 
     console.log(result);
   });

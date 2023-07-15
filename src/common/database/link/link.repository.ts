@@ -13,14 +13,18 @@ export class LinkRepository {
   async create(
     data: Pick<LinkEntity, 'soilderId' | 'displayId' | 'description'>,
   ): Promise<void> {
-    await this.repository.insert(data);
+    try {
+      await this.repository.insert(data);
+    } catch (error) {
+      throw new Error('Failed to create link');
+    }
   }
 
-  async findById(id: string): Promise<LinkEntity | null> {
+  async findById(id: number): Promise<LinkEntity | null> {
     return await this.repository.findOneBy({ id });
   }
 
-  async findAllBySoilderId(soilderId: string): Promise<LinkEntity[]> {
+  async findAllBySoilderId(soilderId: number): Promise<LinkEntity[]> {
     return await this.repository.findBy({ soilderId });
   }
 }

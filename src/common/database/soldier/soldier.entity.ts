@@ -10,26 +10,29 @@ import {
 } from 'typeorm';
 import { UserEntity } from '../user';
 
-@Entity({ name: 'soilder' })
-export class SoilderEntity {
+@Entity({ name: 'soldier' })
+export class SoldierEntity {
   @PrimaryGeneratedColumn()
-  id: string;
+  id: number;
 
-  @Column({ type: 'varchar', length: 15, nullable: false, unique: true })
+  @Column({ type: 'varchar', length: 15, nullable: false })
   campId: string;
 
   @Column({ nullable: false })
-  registerUserId: string;
+  registerUserId: number;
 
   @ManyToOne(() => UserEntity, {
     lazy: true,
     createForeignKeyConstraints: false,
   })
-  @JoinColumn({ name: 'register_user', referencedColumnName: 'id' })
+  @JoinColumn({ name: 'register_user_id', referencedColumnName: 'id' })
   registerUser: Promise<UserEntity>;
 
   @Column({ type: 'varchar', length: 15, nullable: false })
   name: string;
+
+  @Column({ type: 'varchar', length: 15, nullable: false, unique: true })
+  nickname: string;
 
   @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date;

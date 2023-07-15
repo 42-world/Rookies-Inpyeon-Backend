@@ -13,17 +13,20 @@ export class LetterRepository {
   async create(
     data: Pick<
       LetterEntity,
-      'title' | 'content' | 'writer' | 'linkId' | 'isHidden'
+      'title' | 'content' | 'writer' | 'linkId' | 'password'
     >,
   ): Promise<void> {
     await this.repository.insert(data);
   }
 
-  async findById(id: string): Promise<LetterEntity | null> {
-    return await this.repository.findOneBy({ id });
+  async findByIdAndPassword(
+    id: number,
+    password: string,
+  ): Promise<LetterEntity | null> {
+    return await this.repository.findOneBy({ id, password });
   }
 
-  async findAllByLinkId(linkId: string): Promise<LetterEntity[]> {
+  async findAllByLinkId(linkId: number): Promise<LetterEntity[]> {
     return await this.repository.findBy({ linkId });
   }
 }

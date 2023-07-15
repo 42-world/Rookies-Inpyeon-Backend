@@ -5,11 +5,11 @@ import * as cookieParser from 'cookie-parser';
 import 'reflect-metadata';
 import { AppModule } from './app.module';
 import {
-  PHASE,
   initAccessLog,
   initCors,
   initSentry,
   initSwagger,
+  PHASE,
 } from './core';
 
 async function bootstrap() {

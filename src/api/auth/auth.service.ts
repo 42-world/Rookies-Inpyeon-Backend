@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
 import { Response } from 'express';
-import { CookieManager, LoginService } from '../../common/auth';
+import { CookieManager, JwtPayload, LoginService } from '../../common/auth';
 import { KakaoProfile } from './kakao-auth';
 
 @Injectable()
@@ -20,7 +20,7 @@ export class AuthService {
       profile.displayName,
     );
 
-    const jwt = this.jwtService.sign({ id: user.id });
+    const jwt = this.jwtService.sign({ id: user.id } as JwtPayload);
 
     this.cookieManager.set(response, {
       name: this.accessTokenName,

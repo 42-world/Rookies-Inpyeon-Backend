@@ -8,7 +8,7 @@ import { UserEntity } from '../../common/database';
 export class UserController {
   @Get()
   @Auth()
-  @ApiOperation({ summary: '내 정보 가져오기' })
+  @ApiOperation({ summary: '내 정보 가져오기 (로그인 여부 판단)' })
   @ApiOkResponse({ description: '내 정보', type: UserEntity })
   async me(@AuthUser() user: UserEntity): Promise<UserEntity> {
     return user;

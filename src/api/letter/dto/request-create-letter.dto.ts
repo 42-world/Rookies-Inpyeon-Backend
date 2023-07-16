@@ -1,18 +1,21 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
-import { IsNumber, IsString } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 export class RequestCreateLetter {
   @ApiProperty()
   @IsString()
+  @IsNotEmpty()
   title: string;
 
   @ApiProperty()
   @IsString()
+  @IsNotEmpty()
   content: string;
 
   @ApiProperty()
   @IsString()
+  @IsNotEmpty()
   writer: string;
 
   @ApiProperty()
@@ -22,5 +25,6 @@ export class RequestCreateLetter {
 
   @ApiProperty()
   @IsString()
+  @IsNotEmpty()
   password: string;
 }

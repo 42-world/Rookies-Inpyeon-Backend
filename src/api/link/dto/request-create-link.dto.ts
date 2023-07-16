@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
-import { IsNumber, IsString } from 'class-validator';
+import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 
 export class RequestCreateLink {
   @ApiProperty()
@@ -10,5 +10,6 @@ export class RequestCreateLink {
 
   @ApiProperty()
   @IsString()
+  @IsNotEmpty()
   description: string;
 }

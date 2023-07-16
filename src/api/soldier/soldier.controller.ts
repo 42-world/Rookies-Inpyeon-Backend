@@ -15,7 +15,11 @@ import {
 } from '@nestjs/swagger';
 import { Auth, AuthUser } from '../../common/auth';
 import { SoldierEntity, UserEntity } from '../../common/database';
-import { RequestRegisterSoldier, ResponseAvailableNicknameDto } from './dto';
+import {
+  RequestCheckNicknameDto,
+  RequestRegisterSoldier,
+  ResponseAvailableNicknameDto,
+} from './dto';
 import { SoldierCreator, SoldierFinder } from './service';
 
 @ApiTags('Soldier')
@@ -26,9 +30,9 @@ export class SoldierController {
     private readonly soldierCreator: SoldierCreator,
   ) {}
 
-  @Get()
+  @Get('all')
   @Auth()
-  @ApiOperation({ summary: '내 군인 가져오기' })
+  @ApiOperation({ summary: '내 모든 군인 가져오기' })
   @ApiOkResponse({ description: '등록된 군인', type: [SoldierEntity] })
   async getSoldiersByUser(
     @AuthUser() user: UserEntity,
@@ -42,31 +46,29 @@ export class SoldierController {
   @ApiOkResponse({ description: '군인 정보', type: SoldierEntity })
   async getSoldier(
     @AuthUser() user: UserEntity,
-    @Param('id', ParseIntPipe) soilderId: number,
+    @Param('id', ParseIntPipe) soldierId: number,
   ): Promise<SoldierEntity> {
-    return await this.soldierFinder.findSoldier(user.id, soilderId);
+    return await this.soldierFinder.findSoldier(user.id, soldierId);
   }
 
-  @Get('nickname/:nickname')
-  @Auth()
-  @ApiOperation({ summary: '닉네임으로 군인 정보 가져오기' })
+  @Get()
+  @ApiOperation({ summary: 'nickname 으로 군인 정보 가져오기' })
   @ApiOkResponse({ description: '군인 정보', type: SoldierEntity })
   async getSoldierByNickname(
-    @AuthUser() user: UserEntity,
-    @Param('nickname') nickname: string,
+    @Query('nickname') nickname: string,
   ): Promise<SoldierEntity> {
-    return await this.soldierFinder.findSoldierByNickname(user.id, nickname);
+    return await this.soldierFinder.findSoldierByNickname(nickname);
   }
 
-  @Get('check/nickname')
+  @Post('check/nickname')
   @Auth()
   @ApiOperation({ summary: '닉네임 확인' })
   @ApiOkResponse({ type: ResponseAvailableNicknameDto })
   async checkNickname(
-    @Query('nickname') nickname: string,
+    @Body() body: RequestCheckNicknameDto,
   ): Promise<ResponseAvailableNicknameDto> {
     const isAvailable = await this.soldierCreator.checkAvailableNickname(
-      nickname,
+      body.nickname,
     );
 
     return { isAvailable };

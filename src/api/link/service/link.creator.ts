@@ -13,22 +13,22 @@ export class LinkCreator {
 
   async create(
     userId: number,
-    soilderId: number,
+    soldierId: number,
     description: string,
   ): Promise<void> {
-    await this.mySoldierValidator.mySoldierOrThrow(userId, soilderId);
-    await this.tryCreateLink(soilderId, description);
+    await this.mySoldierValidator.mySoldierOrThrow(userId, soldierId);
+    await this.tryCreateLink(soldierId, description);
   }
 
   @Retry({ attempts: 3 })
   private async tryCreateLink(
-    soilderId: number,
+    soldierId: number,
     description: string,
   ): Promise<void> {
-    const displayId = this.uniqueIdGenerator.letters(3);
+    const displayId = this.uniqueIdGenerator.lowerLetters(3);
     try {
       return await this.linkRepository.create({
-        soilderId,
+        soldierId,
         description,
         displayId,
       });

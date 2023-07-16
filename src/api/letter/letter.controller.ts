@@ -23,11 +23,11 @@ import { LetterService } from './letter.service';
 export class LetterController {
   constructor(private readonly letterService: LetterService) {}
 
-  @Get()
-  @ApiOperation({ summary: '링크에있는 모든 편지 가져오기' })
+  @Get('by/linkId/:linkId')
+  @ApiOperation({ summary: '링크에 있는 모든 편지 가져오기' })
   @ApiOkResponse({ description: '편지 목록', type: [LetterPreview] })
   async getLetterPreviewByLink(
-    @Query('linkId', ParseIntPipe) linkId: number,
+    @Param('linkId', ParseIntPipe) linkId: number,
   ): Promise<LetterPreview[]> {
     return await this.letterService.findLetterPreviewByLink(linkId);
   }

@@ -10,6 +10,14 @@ export class UniqueIdGenerator {
     return this.generate(length, this.letterCharacters);
   }
 
+  lowerLetters(length: number) {
+    return this.generate(length, this.letterCharacters.slice(0, 26));
+  }
+
+  upperLetters(length: number) {
+    return this.generate(length, this.letterCharacters.slice(26));
+  }
+
   numbers(length: number) {
     return this.generate(length, this.numberCharacters);
   }

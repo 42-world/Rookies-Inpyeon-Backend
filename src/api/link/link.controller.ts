@@ -26,13 +26,13 @@ export class LinkController {
     private readonly linkCreator: LinkCreator,
   ) {}
 
-  @Get()
+  @Get('by/soldierId/:soldierId')
   @Auth()
-  @ApiOperation({ summary: '내 링크 가져오기' })
+  @ApiOperation({ summary: '군인의 모든 링크 가져오기' })
   @ApiOkResponse({ description: '등록된 링크', type: [LinkEntity] })
-  async getLinksBySoldier(
+  async findLinksBySoldier(
     @AuthUser() user: UserEntity,
-    @Query('soldierId', ParseIntPipe) soldierId: number,
+    @Param('soldierId', ParseIntPipe) soldierId: number,
   ): Promise<LinkEntity[]> {
     return await this.linkFinder.findLinksBySoldier(user.id, soldierId);
   }
@@ -41,11 +41,21 @@ export class LinkController {
   @Auth()
   @ApiOperation({ summary: '특정 링크 가져오기' })
   @ApiOkResponse({ description: '링크 정보', type: LinkEntity })
-  async getLink(
+  async findLink(
     @AuthUser() user: UserEntity,
     @Param('id', ParseIntPipe) linkId: number,
   ): Promise<LinkEntity> {
     return await this.linkFinder.findLink(user.id, linkId);
+  }
+
+  @Get()
+  @ApiOperation({ summary: 'soldierId, displayID 로 링크 가져오기' })
+  @ApiOkResponse({ description: '링크 정보', type: LinkEntity })
+  async findLinkByDisplayId(
+    @Query('soldierId', ParseIntPipe) soldierId: number,
+    @Query('displayId') displayId: string,
+  ): Promise<LinkEntity> {
+    return await this.linkFinder.findLinkByDisplayId(soldierId, displayId);
   }
 
   @Post()

@@ -11,7 +11,7 @@ export class LinkRepository {
   ) {}
 
   async create(
-    data: Pick<LinkEntity, 'soilderId' | 'displayId' | 'description'>,
+    data: Pick<LinkEntity, 'soldierId' | 'displayId' | 'description'>,
   ): Promise<void> {
     try {
       await this.repository.insert(data);
@@ -24,7 +24,17 @@ export class LinkRepository {
     return await this.repository.findOneBy({ id });
   }
 
-  async findAllBySoilderId(soilderId: number): Promise<LinkEntity[]> {
-    return await this.repository.findBy({ soilderId });
+  async findByDisplayIdAndSoldierId(
+    soldierId: number,
+    displayId: string,
+  ): Promise<LinkEntity | null> {
+    return await this.repository.findOneBy({
+      soldierId,
+      displayId,
+    });
+  }
+
+  async findAllBySoldierId(soldierId: number): Promise<LinkEntity[]> {
+    return await this.repository.findBy({ soldierId });
   }
 }

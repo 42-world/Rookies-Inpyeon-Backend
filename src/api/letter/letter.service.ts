@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { LetterEntity, LetterRepository } from '../../common/database';
 import { LetterPreview } from '../../common/domain/letter-preview';
 import { CryptoManager } from '../../common/service';
@@ -12,11 +12,16 @@ export class LetterService {
 
   async findLetter(linkId: number, password: string): Promise<LetterEntity> {
     const encryptedPassword = this.cryptoManager.encrypt(password);
-
-    return await this.letterRepository.findByIdAndPassword(
+    const letter = await this.letterRepository.findByIdAndPassword(
       linkId,
       encryptedPassword,
     );
+
+    if (!letter) {
+      throw new NotFoundException('Letter not found Or Password is wrong');
+    }
+
+    return letter;
   }
 
   async findLetterPreviewByLink(soldierId: number): Promise<LetterPreview[]> {

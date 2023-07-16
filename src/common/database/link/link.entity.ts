@@ -12,20 +12,20 @@ import {
 import { SoldierEntity } from '../soldier';
 
 @Entity({ name: 'link' })
-@Unique(['soilderId', 'displayId'])
+@Unique(['soldierId', 'displayId'])
 export class LinkEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column({ nullable: false })
-  soilderId: number;
+  soldierId: number;
 
   @ManyToOne(() => SoldierEntity, {
     lazy: true,
     createForeignKeyConstraints: false,
   })
-  @JoinColumn({ name: 'soilder_id', referencedColumnName: 'id' })
-  soilder: Promise<SoldierEntity>;
+  @JoinColumn({ name: 'soldier_id', referencedColumnName: 'id' })
+  soldier: Promise<SoldierEntity>;
 
   @Column({ type: 'varchar', length: 15, nullable: false })
   displayId: string;

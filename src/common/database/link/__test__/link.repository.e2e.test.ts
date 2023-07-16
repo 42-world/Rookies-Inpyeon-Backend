@@ -13,12 +13,12 @@ describe('LinkRepositoryE2e', () => {
     const linkRepository = app.get<LinkRepository>(LinkRepository);
 
     await linkRepository.create({
-      soilderId: 1,
+      soldierId: 1,
       displayId: String(Math.floor(Math.random() * 1000000)),
       description: 'test',
     });
 
-    const result = await linkRepository.findAllBySoilderId(1);
+    const result = await linkRepository.findAllBySoldierId(1);
 
     console.log(result);
   });

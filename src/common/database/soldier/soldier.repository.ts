@@ -27,16 +27,6 @@ export class SoldierRepository {
     return await this.repository.findOneBy({ nickname });
   }
 
-  async findByNicknmaeAndUserId(
-    userId: number,
-    nickname: string,
-  ): Promise<SoldierEntity | null> {
-    return await this.repository.findOneBy({
-      nickname,
-      registerUserId: userId,
-    });
-  }
-
   async findByIdAndUserId(
     id: number,
     userId: number,

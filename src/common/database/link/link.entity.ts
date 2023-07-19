@@ -17,7 +17,7 @@ export class LinkEntity {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column({ nullable: false })
+  @Column({ type: 'int', nullable: false })
   soldierId: number;
 
   @ManyToOne(() => SoldierEntity, {

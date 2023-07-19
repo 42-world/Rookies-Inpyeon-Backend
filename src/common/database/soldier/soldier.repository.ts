@@ -11,9 +11,9 @@ export class SoldierRepository {
   ) {}
 
   async create(
-    data: Pick<
+    data: Omit<
       SoldierEntity,
-      'campId' | 'registerUserId' | 'name' | 'nickname'
+      'id' | 'registerUser' | 'createdAt' | 'updatedAt' | 'deletedAt'
     >,
   ): Promise<void> {
     try {

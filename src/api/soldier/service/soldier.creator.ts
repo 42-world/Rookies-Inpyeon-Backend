@@ -16,16 +16,24 @@ export class SoldierCreator {
 
   async registerSoldier(
     userId: number,
-    campId: string,
     name: string,
     nickname: string,
+    soldierType: string,
+    soldierClass: string,
+    troopName: string,
+    birth: string,
+    enterDate: string,
   ): Promise<void> {
     try {
       return await this.soldierRepository.create({
         registerUserId: userId,
-        campId,
         name,
         nickname,
+        soldierType,
+        soldierClass,
+        troopName,
+        birth,
+        enterDate,
       });
     } catch (error: any) {
       throw new BadRequestException(error.message);

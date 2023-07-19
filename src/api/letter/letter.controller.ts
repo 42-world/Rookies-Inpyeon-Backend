@@ -47,7 +47,6 @@ export class LetterController {
   @ApiCreatedResponse()
   async createLetter(@Body() body: RequestCreateLetter): Promise<void> {
     return await this.letterService.createLetter(
-      body.title,
       body.content,
       body.writer,
       body.linkId,

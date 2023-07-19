@@ -84,9 +84,13 @@ export class SoldierController {
   ): Promise<void> {
     return await this.soldierCreator.registerSoldier(
       user.id,
-      body.campId,
       body.name,
       body.nickname,
+      body.soldierType,
+      body.soldierClass,
+      body.troopName,
+      body.birth,
+      body.enterDate,
     );
   }
 }

@@ -16,9 +16,30 @@ export class SoldierEntity {
   id: number;
 
   @Column({ type: 'varchar', length: 15, nullable: false })
-  campId: string;
+  name: string;
 
-  @Column({ nullable: false })
+  @Column({ type: 'varchar', length: 15, nullable: false, unique: true })
+  nickname: string;
+
+  @Column({ type: 'varchar', length: 30, nullable: true })
+  campId?: string;
+
+  @Column({ type: 'varchar', length: 15, nullable: false })
+  soldierType: string;
+
+  @Column({ type: 'varchar', length: 15, nullable: false })
+  soldierClass: string;
+
+  @Column({ type: 'varchar', length: 15, nullable: false })
+  troopName: string;
+
+  @Column({ type: 'varchar', length: 15, nullable: false })
+  birth: string;
+
+  @Column({ type: 'varchar', length: 15, nullable: false })
+  enterDate: string;
+
+  @Column({ type: 'int', nullable: false })
   registerUserId: number;
 
   @ManyToOne(() => UserEntity, {
@@ -27,12 +48,6 @@ export class SoldierEntity {
   })
   @JoinColumn({ name: 'register_user_id', referencedColumnName: 'id' })
   registerUser: Promise<UserEntity>;
-
-  @Column({ type: 'varchar', length: 15, nullable: false })
-  name: string;
-
-  @Column({ type: 'varchar', length: 15, nullable: false, unique: true })
-  nickname: string;
 
   @CreateDateColumn({ type: 'timestamp' })
   createdAt: Date;

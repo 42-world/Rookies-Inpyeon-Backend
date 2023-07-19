@@ -31,20 +31,29 @@ export class LetterService {
   }
 
   async createLetter(
-    title: string,
     content: string,
     writer: string,
     linkId: number,
-    password: string,
+    password?: string,
   ): Promise<void> {
-    const encryptedPassword = this.cryptoManager.encrypt(password);
+    const title = content.slice(0, 15);
+    if (password) {
+      const encryptedPassword = this.cryptoManager.encrypt(password);
+
+      return await this.letterRepository.create({
+        title,
+        content,
+        writer,
+        linkId,
+        password: encryptedPassword,
+      });
+    }
 
     return await this.letterRepository.create({
       title,
       content,
       writer,
       linkId,
-      password: encryptedPassword,
     });
   }
 }

@@ -18,7 +18,7 @@ export class LetterEntity {
   id: number;
 
   @ApiProperty()
-  @Column({ nullable: false })
+  @Column({ type: 'int', nullable: false })
   linkId: number;
 
   @ManyToOne(() => LinkEntity, {
@@ -41,12 +41,12 @@ export class LetterEntity {
   writer: string;
 
   @ApiProperty()
-  @Column({ type: 'boolean', nullable: false, default: false })
-  isSent: boolean;
+  @Column({ type: 'int', nullable: false, default: 0 })
+  trySentCount: number;
 
   @ApiProperty()
-  @Column({ type: 'varchar', length: 15, nullable: false })
-  password: string;
+  @Column({ type: 'varchar', length: 15, nullable: true })
+  password?: string;
 
   @ApiProperty()
   @CreateDateColumn({ type: 'timestamp' })

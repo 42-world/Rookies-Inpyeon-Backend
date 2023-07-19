@@ -15,7 +15,7 @@ export class LetterPreview {
   readonly writer: string;
 
   @ApiProperty()
-  readonly isSent: boolean;
+  readonly hasPassword: boolean;
 
   @ApiProperty()
   readonly createdAt: Date;
@@ -25,14 +25,14 @@ export class LetterPreview {
     // title: string,
     // content: string,
     writer: string,
-    isSent: boolean,
+    hasPassword: boolean,
     createdAt: Date,
   ) {
     this.id = id;
     // this.title = title;
     // this.content = content;
     this.writer = writer;
-    this.isSent = isSent;
+    this.hasPassword = hasPassword;
     this.createdAt = createdAt;
   }
 
@@ -42,7 +42,7 @@ export class LetterPreview {
       // entity.title,
       // entity.content,
       entity.writer,
-      entity.isSent,
+      !!entity.password,
       entity.createdAt,
     );
   }

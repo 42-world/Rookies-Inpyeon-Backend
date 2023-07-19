@@ -4,7 +4,8 @@ WORKDIR /app
 
 COPY . .
 
-RUN yarn install --frozen-lockfile && yarn build
+# TODO: use pnpm
+RUN rm -rf node_modules && yarn install && yarn build
 
 EXPOSE 3000
 

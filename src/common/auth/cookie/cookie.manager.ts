@@ -26,6 +26,6 @@ export class CookieManager {
     const oneHour = 60 * 60 * 1000;
     const maxAge = 7 * 24 * oneHour; // 7days
 
-    return { httpOnly: true, maxAge };
+    return { httpOnly: true, maxAge, domain: '.rookies.kr' };
   }
 }

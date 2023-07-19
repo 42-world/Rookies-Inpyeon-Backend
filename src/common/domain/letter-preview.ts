@@ -20,6 +20,9 @@ export class LetterPreview {
   @ApiProperty()
   readonly createdAt: Date;
 
+  @ApiProperty()
+  readonly updatedAt: Date;
+
   constructor(
     id: number,
     // title: string,
@@ -27,6 +30,7 @@ export class LetterPreview {
     writer: string,
     hasPassword: boolean,
     createdAt: Date,
+    updatedAt: Date,
   ) {
     this.id = id;
     // this.title = title;
@@ -34,6 +38,7 @@ export class LetterPreview {
     this.writer = writer;
     this.hasPassword = hasPassword;
     this.createdAt = createdAt;
+    this.updatedAt = updatedAt;
   }
 
   static fromEntity(entity: LetterEntity): LetterPreview {
@@ -44,6 +49,7 @@ export class LetterPreview {
       entity.writer,
       !!entity.password,
       entity.createdAt,
+      entity.updatedAt,
     );
   }
 }

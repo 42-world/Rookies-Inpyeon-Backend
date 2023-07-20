@@ -1,4 +1,8 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { LetterEntity, LetterRepository } from '../../common/database';
 import { LetterPreview } from '../../common/domain/letter-preview';
 import { CryptoManager } from '../../common/service';
@@ -10,7 +14,7 @@ export class LetterService {
     private readonly cryptoManager: CryptoManager,
   ) {}
 
-  async findLetter(linkId: number, password: string): Promise<LetterEntity> {
+  async findLetter(linkId: number, password?: string): Promise<LetterEntity> {
     const encryptedPassword = this.cryptoManager.encrypt(password);
     const letter = await this.letterRepository.findByIdAndPassword(
       linkId,
@@ -19,6 +23,10 @@ export class LetterService {
 
     if (!letter) {
       throw new NotFoundException('Letter not found Or Password is wrong');
+    }
+
+    if (letter.password != encryptedPassword) {
+      throw new BadRequestException('Password is wrong');
     }
 
     return letter;

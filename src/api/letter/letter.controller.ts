@@ -17,6 +17,7 @@ import { LetterEntity } from '../../common/database';
 import { LetterPreview } from '../../common/domain/letter-preview';
 import { RequestCreateLetter } from './dto';
 import { LetterService } from './letter.service';
+import { ApiImplicitQuery } from '@nestjs/swagger/dist/decorators/api-implicit-query.decorator';
 
 @ApiTags('Letter')
 @Controller('letter')
@@ -35,9 +36,13 @@ export class LetterController {
   @Get(':id')
   @ApiOperation({ summary: '특정 편지 가져오기' })
   @ApiOkResponse({ description: '편지 정보', type: LetterEntity })
+  @ApiImplicitQuery({
+    name: 'password',
+    required: false,
+  })
   async getLetter(
     @Param('id', ParseIntPipe) letterId: number,
-    @Query('password') password: string,
+    @Query('password') password?: string,
   ): Promise<LetterEntity> {
     return await this.letterService.findLetter(letterId, password);
   }
